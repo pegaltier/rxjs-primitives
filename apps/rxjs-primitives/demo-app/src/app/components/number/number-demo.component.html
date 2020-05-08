@@ -1,0 +1,26 @@
+<div class="demo">
+  <form [formGroup]="inputForm">
+    <div class="form-item">
+      <label for="selected-operator">Select Operator</label>
+      <select id="selected-operator" formControlName="operator">
+        <option value="isInteger">isInteger</option>
+        <option value="isFinite">isFinite</option>
+        <option value="isNaN">isNaN</option>
+        <option value="isSafeInteger">isSafeInteger</option>
+      </select>
+    </div>
+
+    <div class="form-item">
+      <label for="number-input">Input a value, or select an option below</label>
+      <input type="number" id="number-input" formControlName="numberInput" />
+    </div>
+  </form>
+
+  <div>
+    <button (click)="setToText()">Set to text value</button>
+    <button (click)="setToNaN()">Set to NaN</button>
+    <button (click)="setToInfinity()">Set to Infinity</button>
+  </div>
+
+  <div #output class="output"></div>
+</div>

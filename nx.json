@@ -30,6 +30,13 @@
     },
     "rxjs-utility": {
       "tags": []
+    },
+    "rxjs-primitives-demo-app": {
+      "tags": []
+    },
+    "rxjs-primitives-demo-app-e2e": {
+      "tags": [],
+      "implicitDependencies": ["rxjs-primitives-demo-app"]
     }
   }
 }

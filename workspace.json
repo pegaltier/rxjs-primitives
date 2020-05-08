@@ -140,10 +140,123 @@
           }
         }
       }
+    },
+    "rxjs-primitives-demo-app": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "apps/rxjs-primitives/demo-app",
+      "sourceRoot": "apps/rxjs-primitives/demo-app/src",
+      "prefix": "tinynodes",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/rxjs-primitives/demo-app",
+            "index": "apps/rxjs-primitives/demo-app/src/index.html",
+            "main": "apps/rxjs-primitives/demo-app/src/main.ts",
+            "polyfills": "apps/rxjs-primitives/demo-app/src/polyfills.ts",
+            "tsConfig": "apps/rxjs-primitives/demo-app/tsconfig.app.json",
+            "aot": true,
+            "assets": ["apps/rxjs-primitives/demo-app/src/favicon.ico", "apps/rxjs-primitives/demo-app/src/assets"],
+            "styles": ["apps/rxjs-primitives/demo-app/src/styles.css"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/rxjs-primitives/demo-app/src/environments/environment.ts",
+                  "with": "apps/rxjs-primitives/demo-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "rxjs-primitives-demo-app:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "rxjs-primitives-demo-app:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "rxjs-primitives-demo-app:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/rxjs-primitives/demo-app/tsconfig.app.json", "apps/rxjs-primitives/demo-app/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!apps/rxjs-primitives/demo-app/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/rxjs-primitives/demo-app/jest.config.js",
+            "tsConfig": "apps/rxjs-primitives/demo-app/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "apps/rxjs-primitives/demo-app/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "rxjs-primitives-demo-app-e2e": {
+      "root": "apps/rxjs-primitives/demo-app-e2e",
+      "sourceRoot": "apps/rxjs-primitives/demo-app-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/rxjs-primitives/demo-app-e2e/cypress.json",
+            "tsConfig": "apps/rxjs-primitives/demo-app-e2e/tsconfig.e2e.json",
+            "devServerTarget": "rxjs-primitives-demo-app:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "rxjs-primitives-demo-app:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/rxjs-primitives/demo-app-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/rxjs-primitives/demo-app-e2e/**"]
+          }
+        }
+      }
     }
   },
   "cli": {
-    "defaultCollection": "@nrwl/workspace"
+    "defaultCollection": "@nrwl/angular"
   },
   "schematics": {
     "@nrwl/workspace": {
@@ -199,6 +312,13 @@
       "library": {
         "linter": "eslint"
       }
+    },
+    "@nrwl/angular:application": {
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "unitTestRunner": "jest"
     }
   }
 }
